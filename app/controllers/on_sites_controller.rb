@@ -1,0 +1,2 @@
+class OnSitesController < ApplicationController
+end

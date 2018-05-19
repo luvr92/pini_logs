@@ -1,0 +1,2 @@
+class OnBoardsController < ApplicationController
+end

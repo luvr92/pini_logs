@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_19_160717) do
+ActiveRecord::Schema.define(version: 2018_05_19_161717) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,13 @@ ActiveRecord::Schema.define(version: 2018_05_19_160717) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "drop_offs", force: :cascade do |t|
+    t.bigint "job_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_id"], name: "index_drop_offs_on_job_id"
+  end
+
   create_table "jobs", force: :cascade do |t|
     t.string "referente"
     t.string "richieste"
@@ -38,6 +45,20 @@ ActiveRecord::Schema.define(version: 2018_05_19_160717) do
     t.datetime "updated_at", null: false
     t.string "address"
     t.string "destination"
+  end
+
+  create_table "on_boards", force: :cascade do |t|
+    t.bigint "job_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_id"], name: "index_on_boards_on_job_id"
+  end
+
+  create_table "on_sites", force: :cascade do |t|
+    t.bigint "job_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_id"], name: "index_on_sites_on_job_id"
   end
 
   create_table "suppliers", force: :cascade do |t|
@@ -66,4 +87,7 @@ ActiveRecord::Schema.define(version: 2018_05_19_160717) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "drop_offs", "jobs"
+  add_foreign_key "on_boards", "jobs"
+  add_foreign_key "on_sites", "jobs"
 end
